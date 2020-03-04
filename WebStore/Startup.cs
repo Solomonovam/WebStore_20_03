@@ -16,6 +16,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc(); dot.net core 2.2(1,0)
+            services.AddControllersWithViews(); //3.0 и выше
         }
 
 
@@ -34,10 +36,14 @@ namespace WebStore
             Configuration["Testkey"] = "123";
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["CustomGreetings"]);
                 });
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
