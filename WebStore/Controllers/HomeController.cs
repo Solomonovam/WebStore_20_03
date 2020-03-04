@@ -6,12 +6,12 @@ namespace WebStore.Controllers
     {
         public IActionResult Index()
         {
-            return Conflict("1");
+            return View();
         }
 
         public IActionResult SomeAction()
         {
-            return Conflict("2");
+            return Content("2");
         }
     }
 }
