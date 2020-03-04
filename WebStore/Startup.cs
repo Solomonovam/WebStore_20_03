@@ -26,6 +26,7 @@ namespace WebStore
             }
 
             app.UseRouting();
+            var greetings = Configuration["CustomGreetings"];//Вызов из файла конфигурации
 
             app.UseEndpoints(endpoints =>
             {
