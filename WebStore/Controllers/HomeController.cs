@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -9,24 +10,24 @@ namespace WebStore.Controllers
         private static readonly List<Employee> _Employee = new List<Employee> {
             new Employee{
                 id = 1,
-                Patronymic = "1",
-                SurName = "11",
-                FirstName = "111",
-                Age = 11
+                Patronymic = "Иванов",
+                SurName = "Иван",
+                FirstName = "Иванович",
+                Age = 39
             },
             new Employee{
                 id = 2,
-                Patronymic = "2",
-                SurName = "22",
-                FirstName = "222",
-                Age = 22
+                Patronymic = "Петров",
+                SurName = "Пётр",
+                FirstName = "Петрович",
+                Age = 18
             },
             new Employee{
                 id = 3,
-                Patronymic = "3",
-                SurName = "33",
-                FirstName = "333",
-                Age = 33
+                Patronymic = "Сидоров",
+                SurName = "Сидор",
+                FirstName = "Сидорович",
+                Age = 27
             },
         };
 
@@ -43,7 +44,16 @@ namespace WebStore.Controllers
 
         public IActionResult Employees()
         {
-            return View();
+            return View(_Employee);
         }
+
+        public IActionResult Employee(int id)
+        {
+            var employee = _Employee.FirstOrDefault(e => e.id == id);
+            if (employee is null)
+                return NotFound();
+            return View(employee);
+        }
+
     }
 }
