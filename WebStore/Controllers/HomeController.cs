@@ -32,28 +32,30 @@ namespace WebStore.Controllers
         };
 
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
-        public IActionResult SomeAction()
-        {
-            return Content("2");
-        }
 
-        public IActionResult Employees()
-        {
-            return View(_Employee);
-        }
+        public IActionResult SomeAction() => Content("2");
 
-        public IActionResult Employee(int id)
+        public IActionResult Employees() => View(_Employee);
+
+        public IActionResult Employee(int id) 
         {
             var employee = _Employee.FirstOrDefault(e => e.id == id);
             if (employee is null)
                 return NotFound();
             return View(employee);
         }
+
+        public IActionResult Error404() => View();
+        public IActionResult Blog() => View();
+        public IActionResult BlogSingle() => View();
+        public IActionResult Cart() => View();
+        public IActionResult CheckOut() => View();
+        public IActionResult ContactUs() => View();
+        public IActionResult Login() => View();
+        public IActionResult Shop() => View();
+        public IActionResult ProductDetails() => View();
 
     }
 }
