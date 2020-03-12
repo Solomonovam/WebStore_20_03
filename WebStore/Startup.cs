@@ -35,6 +35,9 @@ namespace WebStore
 
             app.UseRouting();
             Configuration["Testkey"] = "123";
+
+            app.UseWelcomePage("/welcome"); //тестовая страница
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/greetings", async context =>
