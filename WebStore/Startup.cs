@@ -17,7 +17,7 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvc(); dot.net core 2.2(1,0)
-            services.AddControllersWithViews(); //3.0 и выше
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); //3.0 и выше
         }
 
 
@@ -26,6 +26,7 @@ namespace WebStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() { }) { });//Для выдачи статических файлов
