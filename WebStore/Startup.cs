@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Services;
 
 namespace WebStore
 {
@@ -18,6 +20,11 @@ namespace WebStore
         {
             //services.AddMvc(); dot.net core 2.2(1,0)
             services.AddControllersWithViews().AddRazorRuntimeCompilation(); //3.0 и выше
+
+            //–егистраци€ сервиса
+            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - каждый раз будет создаватьс€ экземпл€р сервиса
+            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпл€р на обдасть видимости
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все врем€ жизни приложени€
         }
 
 
