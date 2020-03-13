@@ -17,6 +17,8 @@
                 <th>Отчество</th>
                 <th>Возраст</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +31,7 @@
                     <td>@employee.Patronymic</td>
                     <td>@employee.Age</td>
                     <td><a asp-controller="Employees" asp-action="Details" asp-route-id="@employee.id">Посмотреть карточку</a></td>
+                    <td><a asp-controller="Employees" asp-action="Edit" asp-route-id="@employee.id">Редактирование</a></td>
                 </tr>
             }
         </tbody>
