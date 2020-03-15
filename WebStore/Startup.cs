@@ -28,7 +28,7 @@ namespace WebStore
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEmployeesData employees)
         {
             if (env.IsDevelopment())
             {
