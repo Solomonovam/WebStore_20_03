@@ -98,7 +98,7 @@ namespace WebStore.Controllers
 
         [HttpPost]
         //public IActionResult Edit([Bind("Id","Name", "SecondName")]EmployeeViewModel Employee) //Bind - свяжет только узазанные параметры модели
-        public IActionResult Edit([Bind("Id","Name")]EmployeeViewModel Employee)
+        public IActionResult Edit(EmployeeViewModel Employee)
         {
             if (Employee is null)
                 throw new ArgumentNullException(nameof(Employee));

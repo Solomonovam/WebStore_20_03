@@ -16,7 +16,7 @@ namespace WebStore.ViewModels
         [Required(ErrorMessage = "Имя обязательно")]
         [MinLength(3, ErrorMessage = "Минимальная длинна 3-и символа")]
         [StringLength(maximumLength: 200, MinimumLength = 3, ErrorMessage = "Длинна имени должна быть >3 и <200")]
-        //[RegularExpressionAttribute(@"(?:[А-ЯЁ][а-яё]+)", ErrorMessage ="Вводить только русскаими буквами")]
+     //   [RegularExpressionAttribute(@"(?:[А-ЯЁ][а-яё]+)", ErrorMessage = "Вводить только русскаими буквами")]
         public String Name { get; set; }
 
 
@@ -30,7 +30,7 @@ namespace WebStore.ViewModels
 
         [Display(Name = "Возраст")]
         [Required(ErrorMessage = "Возраст обязателен")]
-        [Range(18,75,ErrorMessage ="Возраст не соответствует диапазону от 18 до 75")]
+        [Range(18, 75, ErrorMessage = "Возраст не соответствует диапазону от 18 до 75")]
         public int Age { get; set; }
 
     }
