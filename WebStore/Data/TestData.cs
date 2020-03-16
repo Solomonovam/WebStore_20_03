@@ -84,7 +84,7 @@ namespace WebStore.Data
 
             new Section ()
             {Id = 1,
-            Name = "Sportswear",
+            Name = "Спорт",
             Order = 0,
             ParentId = null
             },
@@ -126,7 +126,7 @@ namespace WebStore.Data
             new Section ()
             {
             Id = 7,
-            Name = "Mens",
+            Name = "Мужчины",
             Order = 1,
             ParentId = null
             },
@@ -201,7 +201,7 @@ namespace WebStore.Data
             new Section ()
             {
             Id = 18,
-            Name = "Womens",
+            Name = "Женщины",
             Order = 2,
             ParentId = null
             },
@@ -243,7 +243,7 @@ namespace WebStore.Data
             new Section ()
             {
             Id = 24,
-            Name = "Kids",
+            Name = "Дети",
             Order = 3,
             ParentId = null},
             new Section ()
