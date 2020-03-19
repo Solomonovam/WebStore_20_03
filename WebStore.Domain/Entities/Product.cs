@@ -30,5 +30,8 @@ namespace WebStore.Domain.Entities
 
         //[NotMapped] //база не увидит это свойство
         //public int NotMappedProperty { get; set; } 
+
+
+        public string Description { get; set; }
     }
 }
