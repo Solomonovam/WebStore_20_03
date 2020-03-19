@@ -10,6 +10,8 @@ using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Services;
 using WebStore.DAL.Context;
 using WebStore.Data;
+using WebStore.Infrastructure.Services.InMemory.InSQL;
+using WebStore.Infrastructure.Services.InMemory;
 
 namespace WebStore
 {
@@ -33,7 +35,7 @@ namespace WebStore
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - каждый раз будет создаватьс€ экземпл€р сервиса
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпл€р на обдасть видимости
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все врем€ жизни приложени€
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
         }
 
 
