@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Data;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Models;
 using WebStore.ViewModels;
 
@@ -19,14 +20,7 @@ namespace WebStore.Controllers
 
 
         //[Route("employees")]
-        public IActionResult Index() => View(_EmployeesData.GetAll().Select(e => new EmployeeViewModel
-        {
-            id = e.id,
-            Name = e.FirstName,
-            SecondName = e.SurName,
-            Patronymic = e.Patronymic,
-            Age = e.Age
-        }));
+        public IActionResult Index() => View(_EmployeesData.GetAll().Select(e => e.ToView()));
 
         //[Route("employee/{id}")]
         public IActionResult Details(int Id)
@@ -36,15 +30,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeeViewModel
-            {
-                id = employee.id,
-                Name = employee.FirstName,
-                SecondName = employee.SurName,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age
-
-            });
+            return View(employee.ToView());
         }
 
         public IActionResult Create()
@@ -53,23 +39,15 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(EmployeeViewModel employee)
         {
             if (employee is null)
                 throw new ArgumentNullException(nameof(employee));
 
             if (!ModelState.IsValid)
-                return View(new EmployeeViewModel
-                {
-                    id = employee.id,
-                    Name = employee.FirstName,
-                    SecondName = employee.SurName,
-                    Patronymic = employee.Patronymic,
-                    Age = employee.Age
+                return View(employee);
 
-                });
-
-            _EmployeesData.Add(employee);
+            _EmployeesData.Add(employee.FromView());
             _EmployeesData.SaveChanges();
 
             return RedirectToAction("Index");
@@ -85,15 +63,7 @@ namespace WebStore.Controllers
             var employee = _EmployeesData.GetById((int)Id);
             if (employee is null) return NotFound();
 
-            return View(new EmployeeViewModel
-            {
-                id = employee.id,
-                Name = employee.FirstName,
-                SecondName = employee.SurName,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age
-
-            });
+            return View(employee.ToView());
         }
 
         [HttpPost]
@@ -112,25 +82,9 @@ namespace WebStore.Controllers
 
             var id = Employee.id;
             if (id == 0)
-                _EmployeesData.Add(new Employee
-                {
-                    id = Employee.id,
-                    FirstName = Employee.Name,
-                    SurName = Employee.SecondName,
-                    Patronymic = Employee.Patronymic,
-                    Age = Employee.Age
-
-                });
+                _EmployeesData.Add(Employee.FromView());
             else
-                _EmployeesData.Edit(id, new Employee
-                {
-                    id = Employee.id,
-                    FirstName = Employee.Name,
-                    SurName = Employee.SecondName,
-                    Patronymic = Employee.Patronymic,
-                    Age = Employee.Age
-
-                });
+                _EmployeesData.Edit(id, Employee.FromView());
 
             _EmployeesData.SaveChanges();
 
@@ -145,15 +99,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeeViewModel
-            {
-                id = employee.id,
-                Name = employee.FirstName,
-                SecondName = employee.SurName,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age
-
-            });
+            return View(employee.ToView());
         }
 
         public IActionResult DeleteConfirmed(int Id)
