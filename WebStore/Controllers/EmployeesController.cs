@@ -97,10 +97,15 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
+        //public IActionResult Edit([Bind("Id","Name", "SecondName")]EmployeeViewModel Employee) //Bind - свяжет только узазанные параметры модели
         public IActionResult Edit(EmployeeViewModel Employee)
         {
             if (Employee is null)
                 throw new ArgumentNullException(nameof(Employee));
+
+            //Вывод ошибки в заголовке страницы
+            if(Employee.Age == 74)
+            ModelState.AddModelError(String.Empty,"Вывод ошибки в верхнюю часть экрана");
 
             if (!ModelState.IsValid)
                 return View(Employee);

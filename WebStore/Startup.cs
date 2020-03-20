@@ -25,10 +25,11 @@ namespace WebStore
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - каждый раз будет создаватьс€ экземпл€р сервиса
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпл€р на обдасть видимости
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все врем€ жизни приложени€
+            services.AddSingleton<IProductData, InMemoryProductData>();
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEmployeesData employees)
         {
             if (env.IsDevelopment())
             {
