@@ -34,9 +34,9 @@ namespace WebStore.Data
 
             using (var transaction =await db.BeginTransactionAsync().ConfigureAwait(false)) {
                 await _db.Sections.AddRangeAsync(TestData.Sections).ConfigureAwait(false);
-                await db.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Section] ON ");
+                await db.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] ON ");
                 await _db.SaveChangesAsync().ConfigureAwait(false);
-                await db.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Section] OFF ");
+                await db.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] OFF ");
                 await transaction.CommitAsync().ConfigureAwait(false);
             }
 
