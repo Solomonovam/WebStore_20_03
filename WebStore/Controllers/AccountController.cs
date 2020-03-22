@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities.Identity;
@@ -14,15 +11,19 @@ namespace WebStore.Controllers
         private readonly UserManager<User> _UserManager;
         private readonly SignInManager<User> _SignInManager;
 
-        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager) {
+        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager)
+        {
             _UserManager = UserManager;
             _SignInManager = SignInManager;
         }
+
+        #region Регистрация пользователя в системе
+
         public IActionResult Register() => View(new RegisterUserViewModel());
 
-        [HttpPut, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterUserViewModel Model) {
-
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterUserViewModel Model)
+        {
             if (!ModelState.IsValid)
                 return View(Model);
 
@@ -32,7 +33,8 @@ namespace WebStore.Controllers
             };
 
             var register_result = await _UserManager.CreateAsync(user, Model.Password);
-            if (register_result.Succeeded) {
+            if (register_result.Succeeded)
+            {
                 await _SignInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
@@ -43,13 +45,15 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
+        #endregion
+
+        #region Вход пользователя в систему
 
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
-
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel Model) {
-
+        public async Task<IActionResult> Login(LoginViewModel Model)
+        {
             if (!ModelState.IsValid) return View(Model);
 
             var login_result = await _SignInManager.PasswordSignInAsync(
@@ -58,25 +62,24 @@ namespace WebStore.Controllers
                 Model.RememberMy,
                 false);
 
-            if (login_result.Succeeded) {
+            if (login_result.Succeeded)
+            {
                 if (Url.IsLocalUrl(Model.ReturnUrl))
                     return Redirect(Model.ReturnUrl);
-
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty,"Неверное имя пользователя или пароль");
+            ModelState.AddModelError(string.Empty, "Неверное имя пользователя, или пароль");
 
             return View(Model);
-
         }
 
+        #endregion
 
-        public async Task<IActionResult>  Logout() {
-
+        public async Task<IActionResult> Logout()
+        {
             await _SignInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
-
     }
 }
