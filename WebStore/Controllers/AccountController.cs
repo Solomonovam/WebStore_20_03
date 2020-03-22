@@ -41,8 +41,6 @@ namespace WebStore.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
 
             return View(Model);
-            
-        
         }
 
         public IActionResult Login() => View(new LoginViewModel());
