@@ -44,6 +44,7 @@ namespace WebStore.Controllers
         }
 
         public IActionResult Login() => View(new LoginViewModel());
+        public IActionResult Logout() => RedirectToAction("Index", "Home");
 
     }
 }
