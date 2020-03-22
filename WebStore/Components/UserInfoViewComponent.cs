@@ -9,7 +9,7 @@ namespace WebStore.Components
     public class UserInfoViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke() => User.Identity?.IsAuthenticated == true
-            ? View("UseInfo")
+            ? View("UserInfo")
             : View();
     }
 }
