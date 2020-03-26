@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /WebStore/wwwroot/lib
+/WebStore/wwwroot/css/site.css
