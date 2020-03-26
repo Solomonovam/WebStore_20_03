@@ -14,7 +14,8 @@
 
                 @inject IProductData catalog;
 
-                <partial name="Partial/_FeaturesItems" />
+                @*<partial name="Partial/_FeaturesItems" model="@Model.Products" />*@
+                <partial name="Partial/_FeaturesItems" model="@catalog.GetProducts().ToView()" />
                 <partial name="Partial/_CategoryTab" />
                 <partial name="Partial/_RecommendedItems" />
             </div>
