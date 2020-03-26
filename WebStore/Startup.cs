@@ -15,6 +15,7 @@ using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
+using WebStore.Infrastructure.Services.InCookies;
 
 namespace WebStore
 {
@@ -73,6 +74,7 @@ namespace WebStore
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпляр на обдасть видимости
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все время жизни приложения
             services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<ICartService, CookiesCartService>();
         }
 
         //Конвейер обработки
@@ -93,6 +95,10 @@ namespace WebStore
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             Configuration["Testkey"] = "123";
 
             app.UseWelcomePage("/welcome"); //тестовая страница
