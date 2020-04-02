@@ -16,6 +16,7 @@ using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using WebStore.Infrastructure.Services.InCookies;
+using WebStore.Infrastructure.Services.InSQL;
 
 namespace WebStore
 {
@@ -27,16 +28,17 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreDB>(opt => 
+            services.AddDbContext<WebStoreDB>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<WebStoreDBInitializer>();
 
-            services.AddIdentity<User,Role>()
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<WebStoreDB>()
                 .AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(opt => {
+            services.Configure<IdentityOptions>(opt =>
+            {
                 opt.Password.RequiredLength = 3;
                 opt.Password.RequireDigit = false;
                 opt.Password.RequireUppercase = false;
@@ -52,7 +54,8 @@ namespace WebStore
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
 
-            services.ConfigureApplicationCookie(opt => {
+            services.ConfigureApplicationCookie(opt =>
+            {
 
                 opt.Cookie.Name = "WebStore";
                 opt.Cookie.HttpOnly = true;
@@ -75,6 +78,7 @@ namespace WebStore
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все время жизни приложения
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
         }
 
         //Конвейер обработки
@@ -87,7 +91,7 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
-            
+
             //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() { }) { });//Для выдачи статических файлов
             app.UseStaticFiles();
             app.UseDefaultFiles();
@@ -109,6 +113,11 @@ namespace WebStore
                 {
                     await context.Response.WriteAsync(Configuration["CustomGreetings"]);
                 });
+
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
                 endpoints.MapControllerRoute(
                     name: "default",
