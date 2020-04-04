@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebStore.ViewModels.Identity
+namespace WebStore.Domain.ViewModels.Identity
 {
-    public class RegisterUserViewModel
+    public class LoginViewModel
     {
         [Required]
         [MaxLength(250)]
@@ -18,11 +19,12 @@ namespace WebStore.ViewModels.Identity
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Повторите пароль")]
+        [Display(Name = "Запомни меня")]
         [Compare(nameof(Password))]
-        public string ConfirmPassword { get; set; }
+        public bool RememberMy { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string ReturnUrl { get; set; }
 
     }
 }

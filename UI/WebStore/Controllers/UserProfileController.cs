@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels.Orders;
+using WebStore.Domain.ViewModels.Orders;
 
 namespace WebStore.Controllers
 {
