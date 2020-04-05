@@ -7,17 +7,22 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Interfaces.Services;
-using WebStore.Infrastructure.Services;
+using WebStore.Services.Products;
 using WebStore.DAL.Context;
-using WebStore.Data;
-using WebStore.Infrastructure.Services.InMemory.InSQL;
-using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Services.Data;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
-using WebStore.Infrastructure.Services.InCookies;
-using WebStore.Infrastructure.Services.InSQL;
+using WebStore.Services.Products.InCookies;
+using WebStore.Services.Products.InSQL;
+using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Data;
+using WebStore.Services.Products.InCookies;
+using WebStore.Services.Products.InMemory;
+using WebStore.Services.Products.InSQL;
+using WebStore.Clients.Values;
+using WebStore.Services.Products.InMemory.InSQL;
 
 namespace WebStore
 {
@@ -80,6 +85,8 @@ namespace WebStore
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookiesCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
+
+            services.AddScoped<IValuesService, ValuesClient>();
         }
 
         //Конвейер обработки

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities.Identity;
-using WebStore.Infrastructure.Mapping;
+using  WebStore.Services.Mapping;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
 
