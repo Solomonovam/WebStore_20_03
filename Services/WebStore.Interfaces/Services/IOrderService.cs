@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using WebStore.Domain.Entities.Orders;
 using WebStore.Domain.ViewModels;
 using WebStore.Domain.ViewModels.Orders;
-using WebStore.Domain.ViewModels.Orders;
 
-namespace WebStore.Infrastructure.Interfaces
+namespace WebStore.Interfaces.Services
 {
     public interface IOrderService
     {
@@ -14,6 +13,5 @@ namespace WebStore.Infrastructure.Interfaces
         Order GetOrderById(int id);
 
         Task<Order> CreateOrderAsync(string UserName, CartViewModel Cart, OrderViewModel OrderModel);
-        Task CreateOrderAsync(string name, CartViewModel cartViewModel, OrderViewModel model);
     }
 }

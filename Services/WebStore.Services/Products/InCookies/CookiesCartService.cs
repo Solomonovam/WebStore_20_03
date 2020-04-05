@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
 using WebStore.Domain.ViewModels;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 using WebStore.Infrastructure.Mapping;
 
 namespace WebStore.Infrastructure.Services.InCookies
