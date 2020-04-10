@@ -16,13 +16,12 @@ using System;
 using WebStore.Services.Products.InCookies;
 using WebStore.Services.Products.InSQL;
 using WebStore.Interfaces.Api;
-using WebStore.Interfaces.Services;
-using WebStore.Services.Data;
-using WebStore.Services.Products.InCookies;
 using WebStore.Services.Products.InMemory;
-using WebStore.Services.Products.InSQL;
 using WebStore.Clients.Values;
-using WebStore.Services.Products.InMemory.InSQL;
+using WebStore.Services.Products.InSQL;
+using WebStore.Clients.Employees;
+using WebStore.Clients.Orders;
+using WebStore.Clients.Products;
 
 namespace WebStore
 {
@@ -81,10 +80,16 @@ namespace WebStore
             //Регистрация сервиса
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - каждый раз будет создаваться экземпляр сервиса
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпляр на обдасть видимости
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все время жизни приложения
-            services.AddScoped<IProductData, SqlProductData>();
+            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все время жизни приложения
+            services.AddSingleton<IEmployeesData, EmployeesClient>();
+
+            //services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<IProductData, ProductsClient>();
+
             services.AddScoped<ICartService, CookiesCartService>();
-            services.AddScoped<IOrderService, SqlOrderService>();
+            
+            //services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddScoped<IValuesService, ValuesClient>();
         }

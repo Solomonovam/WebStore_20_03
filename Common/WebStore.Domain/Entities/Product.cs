@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebStore.Domain.Entities
 {
     //[Table("Products")]
-    public class Product : NamedEntity, IOrderEntity
+    public class Product : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
         public int SectionId { get; set; }

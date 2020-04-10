@@ -13,7 +13,7 @@ namespace WebStore.Domain.Entities
     /// Секция товаров
     /// </summary>
     //[Table("Sections")]
-    public class Section : NamedEntity, IOrderEntity
+    public class Section : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
 
