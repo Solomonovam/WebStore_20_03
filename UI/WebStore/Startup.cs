@@ -18,7 +18,6 @@ using WebStore.Services.Products.InSQL;
 using WebStore.Interfaces.Api;
 using WebStore.Services.Products.InMemory;
 using WebStore.Clients.Values;
-using WebStore.Services.Products.InSQL;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
