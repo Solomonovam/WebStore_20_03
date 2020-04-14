@@ -7,7 +7,7 @@
       "wwwroot/css/animate.css",
       "wwwroot/css/responsive.css"
     ]
-  }
+  },
   {
     "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
