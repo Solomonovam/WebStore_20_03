@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.ViewModels
+namespace WebStore.Domain.DTO.Products
 {
-    public class ProductViewModel : INamedEntity, IOrderedEntity
+    public class ProductDTO : INamedEntity, IOrderedEntity
     {
-        
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public int Order { get; set; }
-        public string ImageUrl { get; set; }
+
         public decimal Price { get; set; }
-        public string Brand { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public BrandDTO Brand { get; set; }
+
+        public SectionDTO Section { get; set; }
     }
 }
