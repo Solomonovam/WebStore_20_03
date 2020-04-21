@@ -24,6 +24,9 @@ using WebStore.Clients.Employees;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Identity;
+using Microsoft.Extensions.Logging;
+using WebStore.Infrastructure.Middleware;
+using WebStore.Logger;
 
 namespace WebStore
 {
@@ -124,8 +127,9 @@ namespace WebStore
         //Конвейер обработки
         //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEmployeesData employees)
         //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
             //db.Initialize();
             if (env.IsDevelopment())
             {
@@ -143,6 +147,8 @@ namespace WebStore
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             Configuration["Testkey"] = "123";
 
