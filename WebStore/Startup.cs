@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+п»їusing Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles.Infrastructure;
@@ -15,6 +15,7 @@ using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
+using WebStore.Infrastructure.Services.InCookies;
 
 namespace WebStore
 {
@@ -55,7 +56,7 @@ namespace WebStore
 
                 opt.Cookie.Name = "WebStore";
                 opt.Cookie.HttpOnly = true;
-                //opt.Cookie.Expiration = TimeSpan.FromDays(10); //устарело
+                //opt.Cookie.Expiration = TimeSpan.FromDays(10); //СѓСЃС‚Р°СЂРµР»Рѕ
                 opt.ExpireTimeSpan = TimeSpan.FromDays(10);
 
                 opt.LoginPath = "/Account/Login";
@@ -66,16 +67,17 @@ namespace WebStore
             });
 
             //services.AddMvc(); dot.net core 2.2(1,0)
-            services.AddControllersWithViews().AddRazorRuntimeCompilation(); //3.0 и выше
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); //3.0 Рё РІС‹С€Рµ
 
-            //Регистрация сервиса
-            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - каждый раз будет создаваться экземпляр сервиса
-            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - один экземпляр на обдасть видимости
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - один объект на все время жизни приложения
+            //Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРёСЃР°
+            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>(); // AddTransient - РєР°Р¶РґС‹Р№ СЂР°Р· Р±СѓРґРµС‚ СЃРѕР·РґР°РІР°С‚СЊСЃСЏ СЌРєР·РµРјРїР»СЏСЂ СЃРµСЂРІРёСЃР°
+            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>(); // AddScoped - РѕРґРёРЅ СЌРєР·РµРјРїР»СЏСЂ РЅР° РѕР±РґР°СЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); // AddSingleton - РѕРґРёРЅ РѕР±СЉРµРєС‚ РЅР° РІСЃРµ РІСЂРµРјСЏ Р¶РёР·РЅРё РїСЂРёР»РѕР¶РµРЅРёСЏ
             services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<ICartService, CookiesCartService>();
         }
 
-        //Конвейер обработки
+        //РљРѕРЅРІРµР№РµСЂ РѕР±СЂР°Р±РѕС‚РєРё
         //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IEmployeesData employees)
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
@@ -86,16 +88,20 @@ namespace WebStore
                 app.UseBrowserLink();
             }
             
-            //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() { }) { });//Для выдачи статических файлов
+            //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() { }) { });//Р”Р»СЏ РІС‹РґР°С‡Рё СЃС‚Р°С‚РёС‡РµСЃРєРёС… С„Р°Р№Р»РѕРІ
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             Configuration["Testkey"] = "123";
 
-            app.UseWelcomePage("/welcome"); //тестовая страница
+            app.UseWelcomePage("/welcome"); //С‚РµСЃС‚РѕРІР°СЏ СЃС‚СЂР°РЅРёС†Р°
 
             app.UseEndpoints(endpoints =>
             {
