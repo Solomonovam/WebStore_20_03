@@ -2,7 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <UserSecretsId>3e4a164b-3375-47fb-a119-9e45c5647d15</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Catalog\Partial\**" />
+    <Content Remove="Views\Catalog\Partial\**" />
+    <EmbeddedResource Remove="Views\Catalog\Partial\**" />
+    <None Remove="Views\Catalog\Partial\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
@@ -21,7 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Views\Catalog\Partial\" />
+    <Folder Include="wwwroot\admin\img\" />
   </ItemGroup>
+
 
 </Project>
