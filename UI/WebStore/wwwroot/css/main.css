@@ -2515,8 +2515,12 @@ h2.title {
   background: none;
 }
 
-.contact-info .social-networks ul li a:hover{
-  color: #FE980F;
+.contact-info .social-networks ul li a:hover {
+    color: #FE980F;
+}
+
+.panel-body ul li.active, .brands-name ul li.active {
+    text-decoration: underline
 }
 
 
