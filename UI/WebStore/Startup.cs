@@ -141,6 +141,9 @@ namespace WebStore
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
+            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithReExecute("/Home/ErrorStatus", "?Code={0}");
+
             app.UseAuthentication();
 
             app.UseRouting();
