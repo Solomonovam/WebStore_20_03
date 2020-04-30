@@ -1,7 +1,11 @@
-﻿@model ProductViewModel
+﻿@*@model ProductViewModel*@
+@model WebStore.Domain.ViewModels.ProductViewModel
 @{
     ViewData["Title"] = $"Товар {Model.Name}";
 }
+<div class="container">
+    <vc:bread-crumbs />
+</div>
 
 <section>
     <div class="container">
