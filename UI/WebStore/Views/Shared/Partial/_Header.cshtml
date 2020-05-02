@@ -1,4 +1,5 @@
-﻿<header id="header">
+﻿
+<header id="header">
     <!--header-->
     <div class="header_top">
         <!--header_top-->
@@ -35,12 +36,9 @@
                     <div class="logo pull-left">
                         <a asp-controller="Home" asp-action="Index"><img src="~/images/home/logo.png" alt="" /></a>
                     </div>
-                    <div class="pull-right" id="cart-container">
-                        <vc:cart />
-                    </div>
                 </div>
                 <div class="col-sm-8">
-                    <vc:user-info/>
+                    <vc:user-info />
                 </div>
             </div>
         </div>
@@ -59,11 +57,13 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <partial name="Partial/_MainMenu"/>
+
+                    <partial name="Partial/_MainMenu" />
+
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder="Поиск" />
                     </div>
                 </div>
             </div>
