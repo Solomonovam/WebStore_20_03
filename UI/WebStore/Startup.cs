@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebStore.Hubs;
 using WebStore.Infrastructure.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,12 +39,13 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             //services.AddDbContext<WebStoreDB>(opt =>
             //    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddTransient<WebStoreDBInitializer>();
 
-                services.AddAutoMapper(opt =>
+            services.AddAutoMapper(opt =>
                 {
                     opt.AddProfile<DTOMapping>();
                     opt.AddProfile<ViewModelsMapping>();
@@ -141,6 +143,9 @@ namespace WebStore
             app.UseStaticFiles();
             app.UseDefaultFiles();
 
+            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithReExecute("/Home/ErrorStatus", "?Code={0}");
+
             app.UseAuthentication();
 
             app.UseRouting();
@@ -156,6 +161,8 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<InformationHub>("/info");
+
                 endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["CustomGreetings"]);
